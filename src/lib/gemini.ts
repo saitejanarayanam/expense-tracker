@@ -76,7 +76,7 @@ export interface ExtractedExpense {
 
 export async function extractExpenseFromDocument(buffer: Buffer, mimeType: string): Promise<ExtractedExpense> {
   const response = await getClient().models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-flash-latest',
     contents: [
       {
         role: 'user',
@@ -111,7 +111,7 @@ Expense data:
 ${JSON.stringify(expenses)}`;
 
   const response = await getClient().models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-flash-latest',
     contents: [{ role: 'user', parts: [{ text: prompt }] }],
   });
   return (response.text || '').trim();

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import ExcelJS from 'exceljs';
 import PDFDocument from 'pdfkit';
 import { createClient } from '@/lib/supabase/server';
-import { formatCurrency, formatDate } from '@/lib/format';
+import { formatCurrencyPlain, formatDate } from '@/lib/format';
 import { byCategory } from '@/lib/aggregate';
 import type { Expense } from '@/lib/database.types';
 
@@ -118,7 +118,7 @@ export async function GET(request: Request) {
     doc.moveDown(1);
 
     doc.fontSize(13).fillColor('#1a1a2e').text('Summary');
-    doc.fontSize(11).fillColor('#333').text(`Total spent: ${formatCurrency(total, currency)}`);
+    doc.fontSize(11).fillColor('#333').text(`Total spent: ${formatCurrencyPlain(total, currency)}`);
     doc.text(`Date range: ${from || 'earliest'} to ${to || 'latest'}`);
     doc.moveDown(1);
 
@@ -132,7 +132,7 @@ export async function GET(request: Request) {
       const barWidth = (c.value / maxVal) * barMaxWidth;
       doc.fontSize(9).fillColor('#1a1a2e').text(c.name, chartX, chartY, { width: 100 });
       doc.rect(chartX + 105, chartY - 1, Math.max(2, barWidth), 12).fill(c.color);
-      doc.fillColor('#1a1a2e').fontSize(9).text(formatCurrency(c.value, currency), chartX + 110 + barMaxWidth, chartY - 1, { width: 90 });
+      doc.fillColor('#1a1a2e').fontSize(9).text(formatCurrencyPlain(c.value, currency), chartX + 110 + barMaxWidth, chartY - 1, { width: 90 });
       chartY += 18;
     }
     doc.y = chartY + 10;
@@ -161,7 +161,7 @@ export async function GET(request: Request) {
       doc.text((e.vendor || '—').slice(0, 20), colX.vendor, y, { width: 120 });
       doc.text(e.category, colX.category, y, { width: 100 });
       doc.text(e.payment_mode, colX.mode, y, { width: 120 });
-      doc.text(formatCurrency(Number(e.amount), currency), colX.amount, y, { width: 90 });
+      doc.text(formatCurrencyPlain(Number(e.amount), currency), colX.amount, y, { width: 90 });
       y += 16;
     }
 

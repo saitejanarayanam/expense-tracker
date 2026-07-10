@@ -13,6 +13,11 @@ export function formatCurrency(amount: number, currency = 'INR') {
   }).format(amount);
 }
 
+/** ASCII-only currency formatting for contexts that can't render Unicode currency glyphs (e.g. pdfkit's standard fonts). */
+export function formatCurrencyPlain(amount: number, currency = 'INR') {
+  return `${currency} ${amount.toLocaleString(CURRENCY_LOCALE[currency] || 'en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
 export function formatDate(dateStr: string, dateFormat = 'DD/MM/YYYY') {
   const d = new Date(dateStr + (dateStr.length === 10 ? 'T00:00:00' : ''));
   const dd = String(d.getDate()).padStart(2, '0');
