@@ -92,8 +92,8 @@ export function DashboardCharts({
 
   const trendData = useMemo(() => byDay(expenses, 30), [expenses]);
 
-  const today = new Date();
-  const heatCells = useMemo(() => heatmapMonth(expenses, today.getFullYear(), today.getMonth()), [expenses]);
+  const today = useMemo(() => new Date(), []);
+  const heatCells = useMemo(() => heatmapMonth(expenses, today.getFullYear(), today.getMonth()), [expenses, today]);
   const maxHeat = Math.max(1, ...heatCells.filter((c) => c.value >= 0).map((c) => c.value));
 
   return (

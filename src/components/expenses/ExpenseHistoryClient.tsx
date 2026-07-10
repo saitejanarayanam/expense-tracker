@@ -53,6 +53,7 @@ export function ExpenseHistoryClient({
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- load() resets the list to a loading state before refetching
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showTrash, fromDate, toDate, categoryFilter, paymentModeFilter]);

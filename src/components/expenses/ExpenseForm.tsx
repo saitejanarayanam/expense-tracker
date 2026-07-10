@@ -123,7 +123,6 @@ export function ExpenseForm({
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles[0]) uploadFile(acceptedFiles[0]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
