@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf9ff;
+  --surface: #ffffff;
+  --foreground: #1a1a2e;
+  --muted: #6b6b80;
+  --border: #ece9f7;
+
+  --coral: #ff6b6b;
+  --teal: #00c2a8;
+  --sunny: #ffbe3d;
+  --violet: #7c5cff;
+  --pink: #ff6fb5;
+  --blue: #4d96ff;
+
+  --success: #00b894;
+  --danger: #ff5252;
+}
+
+:root[data-theme="dark"] {
+  --background: #12121e;
+  --surface: #1a1a2c;
+  --foreground: #f2f1fb;
+  --muted: #9d9db0;
+  --border: #2a2a40;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #12121e;
+    --surface: #1a1a2c;
+    --foreground: #f2f1fb;
+    --muted: #9d9db0;
+    --border: #2a2a40;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-coral: var(--coral);
+  --color-teal: var(--teal);
+  --color-sunny: var(--sunny);
+  --color-violet: var(--violet);
+  --color-pink: var(--pink);
+  --color-blue: var(--blue);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  border-color: var(--border);
+}
+
+::selection {
+  background: var(--violet);
+  color: white;
+}
+
+.gradient-brand {
+  background: linear-gradient(135deg, var(--violet) 0%, var(--coral) 50%, var(--sunny) 100%);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 2px rgba(20, 10, 60, 0.04);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.35s ease-out both;
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translateY(120px) rotate(360deg);
+    opacity: 0;
+  }
 }
